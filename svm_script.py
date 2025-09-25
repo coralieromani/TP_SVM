@@ -94,8 +94,9 @@ y = iris.target
 X = X[y != 0, :2]
 y = y[y != 0]
 
-# split train test
-X, y = shuffle(X, y)
+# split train test (say 25% for the test)
+# You can shuffle and then separate or you can just use train_test_split 
+#whithout shuffling (in that case fix the random state (say to 42) for reproductibility)
 # ... TODO
 ###############################################################################
 # fit the model with linear vs polynomial kernel
@@ -104,13 +105,12 @@ X, y = shuffle(X, y)
 #%%
 # Q1 Linear kernel
 
-# fit the model
+# fit the model and select the best hyperparameter C
 parameters = {'kernel': ['linear'], 'C': list(np.logspace(-3, 3, 200))}
 # ... TODO
 clf_linear = # ... TODO
 
 # compute the score
-# ... TODO
 
 print('Generalization score for linear kernel: %s, %s' %
       (clf_linear.score(X_train, y_train),
@@ -122,6 +122,7 @@ Cs = list(np.logspace(-3, 3, 5))
 gammas = 10. ** np.arange(1, 2)
 degrees = np.r_[1, 2, 3]
 
+# fit the model and select the best set of hyperparameters
 parameters = {'kernel': ['poly'], 'C': Cs, 'gamma': gammas, 'degree': degrees}
 # ... TODO
 clf_poly = # ... TODO
@@ -314,15 +315,16 @@ def run_svm_cv(_X, _y):
           (_clf_linear.score(_X_train, _y_train), _clf_linear.score(_X_test, _y_test)))
 
 print("Score sans variable de nuisance")
-# TODO ... use run_svm_cv on data
+# TODO ... use run_svm_cv on original data
 
 print("Score avec variable de nuisance")
 n_features = X.shape[1]
 # On rajoute des variables de nuisances
 sigma = 1
-noise = sigma * np.random.randn(n_samples, 300, )
-# ... TODO Add the noisy variables to the input data and permut randomly the variables: 
-# this creates a matrix X_noisy
+noise = sigma * np.random.randn(n_samples, 300, ) 
+#with gaussian coefficients of std sigma
+X_noisy = np.concatenate((X, noise), axis=1)
+X_noisy = X_noisy[np.random.permutation(X.shape[0])]
 # TODO ... use run_svm_cv on noisy data
 
 #%%
@@ -331,4 +333,4 @@ print("Score apres reduction de dimension")
 
 n_components = 20  # jouer avec ce parametre
 pca = PCA(n_components=n_components).fit(X_noisy)
-# ... TODO
+# ... TODO Apply PCA and run_svm to the noisy data
