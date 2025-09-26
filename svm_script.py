@@ -97,7 +97,8 @@ y = y[y != 0]
 # split train test (say 25% for the test)
 # You can shuffle and then separate or you can just use train_test_split 
 #whithout shuffling (in that case fix the random state (say to 42) for reproductibility)
-# ... TODO
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
 ###############################################################################
 # fit the model with linear vs polynomial kernel
 ###############################################################################
@@ -107,8 +108,9 @@ y = y[y != 0]
 
 # fit the model and select the best hyperparameter C
 parameters = {'kernel': ['linear'], 'C': list(np.logspace(-3, 3, 200))}
-# ... TODO
-clf_linear = # ... TODO
+clf1 = SVC()
+clf_linear = GridSearchCV(clf1, parameters,n_jobs=-1)
+linear_fit = clf_linear.fit(X_train,y_train)
 
 # compute the score
 
@@ -123,12 +125,12 @@ gammas = 10. ** np.arange(1, 2)
 degrees = np.r_[1, 2, 3]
 
 # fit the model and select the best set of hyperparameters
-parameters = {'kernel': ['poly'], 'C': Cs, 'gamma': gammas, 'degree': degrees}
-# ... TODO
-clf_poly = # ... TODO
-# ... TODO
+parameters0 = {'kernel': ['poly'], 'C': Cs, 'gamma': gammas, 'degree': degrees}
+clf0 = SVC()
+clf_poly = GridSearchCV(clf0, parameters0, n_jobs=-1)
+poly_fit = clf_poly.fit(X_train,y_train)
 
-print(clf_grid.best_params_)
+print(clf_poly.best_params_)
 print('Generalization score for polynomial kernel: %s, %s' %
       (clf_poly.score(X_train, y_train),
        clf_poly.score(X_test, y_test)))
@@ -137,11 +139,24 @@ print('Generalization score for polynomial kernel: %s, %s' %
 #%%
 # display your results using frontiere (svm_source.py)
 
-def f_linear(xx):
-    # ... TODO
+best_linear = linear_fit.best_estimator_
+def f_linear(x):
+    return np.dot(best_linear.coef_, x) + best_linear.intercept_
 
-def f_poly(xx):
-    # ... TODO
+best_poly = poly_fit.best_estimator_
+
+def f_poly(x):
+    """Fonction de décision pour un SVM polynomial."""
+    gamma = best_poly._gamma
+    degree = best_poly.degree
+    coef0 = best_poly.coef0
+    
+    sv = best_poly.support_vectors_
+    dual_coef = best_poly.dual_coef_
+    intercept = best_poly.intercept_
+    K = (gamma * np.dot(sv, x) + coef0) ** degree
+
+    return np.dot(dual_coef, K) + intercept
 
 plt.ion()
 plt.figure(figsize=(15, 5))
