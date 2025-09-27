@@ -284,7 +284,7 @@ t0 = time()
 
 #%%
 # predict labels for the X_test images with the best classifier
-clf =  SVC(C=Cs[ind])
+clf =  SVC(kernel= 'linear',C=Cs[ind])
 clf.fit(X_train, y_train)
 y_predict = clf.predict(X_test)
 print(y_predict)
@@ -330,7 +330,7 @@ def run_svm_cv(_X, _y):
           (_clf_linear.score(_X_train, _y_train), _clf_linear.score(_X_test, _y_test)))
 
 print("Score sans variable de nuisance")
-# TODO ... use run_svm_cv on original data
+run_svm_cv(X,y)
 
 print("Score avec variable de nuisance")
 n_features = X.shape[1]
@@ -340,12 +340,16 @@ noise = sigma * np.random.randn(n_samples, 300, )
 #with gaussian coefficients of std sigma
 X_noisy = np.concatenate((X, noise), axis=1)
 X_noisy = X_noisy[np.random.permutation(X.shape[0])]
-# TODO ... use run_svm_cv on noisy data
+
+run_svm_cv(X_noisy,y)
 
 #%%
 # Q6
+import sklearn
 print("Score apres reduction de dimension")
-
 n_components = 20  # jouer avec ce parametre
 pca = PCA(n_components=n_components).fit(X_noisy)
-# ... TODO Apply PCA and run_svm to the noisy data
+pca = sklearn.decomposition.PCA(svd_solver='randomized')
+run_svm_cv(X_noisy,y)
+
+# %%
