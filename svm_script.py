@@ -346,7 +346,7 @@ run_svm_cv(X_noisy,y)
 import sklearn
 print("Score apres reduction de dimension")
 n_components = 20  # jouer avec ce parametre
-pca = PCA(n_components=n_components).fit(X_noisy)
+pca = PCA(n_components=n_components,svd_solver='randomized').fit(X_noisy)
 X_noisy2 = pca.transform(X_noisy)
 run_svm_cv(X_noisy2,y)
 
