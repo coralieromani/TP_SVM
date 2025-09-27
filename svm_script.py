@@ -98,7 +98,6 @@ y = y[y != 0]
 # You can shuffle and then separate or you can just use train_test_split 
 #whithout shuffling (in that case fix the random state (say to 42) for reproductibility)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-
 ###############################################################################
 # fit the model with linear vs polynomial kernel
 ###############################################################################
@@ -109,11 +108,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 # fit the model and select the best hyperparameter C
 parameters = {'kernel': ['linear'], 'C': list(np.logspace(-3, 3, 200))}
 clf1 = SVC()
-clf_linear = GridSearchCV(clf1, parameters,n_jobs=-1)
+clf_linear = GridSearchCV(clf1, parameters)
 linear_fit = clf_linear.fit(X_train,y_train)
 
 # compute the score
 
+print(clf_linear.best_params_)
 print('Generalization score for linear kernel: %s, %s' %
       (clf_linear.score(X_train, y_train),
        clf_linear.score(X_test, y_test)))
@@ -127,7 +127,7 @@ degrees = np.r_[1, 2, 3]
 # fit the model and select the best set of hyperparameters
 parameters0 = {'kernel': ['poly'], 'C': Cs, 'gamma': gammas, 'degree': degrees}
 clf0 = SVC()
-clf_poly = GridSearchCV(clf0, parameters0, n_jobs=-1)
+clf_poly = GridSearchCV(clf0, parameters0)
 poly_fit = clf_poly.fit(X_train,y_train)
 
 print(clf_poly.best_params_)
@@ -141,22 +141,10 @@ print('Generalization score for polynomial kernel: %s, %s' %
 
 best_linear = linear_fit.best_estimator_
 def f_linear(x):
-    return np.dot(best_linear.coef_, x) + best_linear.intercept_
+    return clf_linear.predict(x.reshape(1, -1))
 
-best_poly = poly_fit.best_estimator_
-
-def f_poly(x):
-    """Fonction de décision pour un SVM polynomial."""
-    gamma = best_poly._gamma
-    degree = best_poly.degree
-    coef0 = best_poly.coef0
-    
-    sv = best_poly.support_vectors_
-    dual_coef = best_poly.dual_coef_
-    intercept = best_poly.intercept_
-    K = (gamma * np.dot(sv, x) + coef0) ** degree
-
-    return np.dot(dual_coef, K) + intercept
+def f_poly(x) : 
+    return clf_poly.predict(x.reshape(1, -1))
 
 plt.ion()
 plt.figure(figsize=(15, 5))
