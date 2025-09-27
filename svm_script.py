@@ -284,7 +284,11 @@ t0 = time()
 
 #%%
 # predict labels for the X_test images with the best classifier
-# clf =  ... TODO
+clf =  SVC(C=Cs[ind])
+clf.fit(X_train, y_train)
+y_predict = clf.predict(X_test)
+print(y_predict)
+print(y_test)
 
 print("done in %0.3fs" % (time() - t0))
 # The chance level is the accuracy that will be reached when constantly predicting the majority class.
