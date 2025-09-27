@@ -113,7 +113,6 @@ clf_linear = GridSearchCV(clf1, parameters)
 linear_fit = clf_linear.fit(X_train,y_train)
 
 # compute the score
-
 print(clf_linear.best_params_)
 print('Generalization score for linear kernel: %s, %s' %
       (clf_linear.score(X_train, y_train),
@@ -211,7 +210,7 @@ idx0 = (lfw_people.target == target_names.index(names[0]))
 idx1 = (lfw_people.target == target_names.index(names[1]))
 images = np.r_[images[idx0], images[idx1]]
 n_samples = images.shape[0]
-y = np.r_[np.zeros(np.sum(idx0)), np.ones(np.sum(idx1))].astype(np.int)
+y = np.r_[np.zeros(np.sum(idx0)), np.ones(np.sum(idx1))].astype(np.int64)
 
 # plot a sample set of the data
 plot_gallery(images, np.arange(12))
@@ -343,7 +342,6 @@ run_svm_cv(X_noisy,y)
 
 #%%
 # Q6
-import sklearn
 print("Score apres reduction de dimension")
 n_components = 20  # jouer avec ce parametre
 pca = PCA(n_components=n_components,svd_solver='randomized').fit(X_noisy)
