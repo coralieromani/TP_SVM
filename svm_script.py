@@ -284,8 +284,8 @@ t0 = time()
 # predict labels for the X_test images with the best classifier
 clf =  SVC(kernel= 'linear',C=Cs[ind])
 clf.fit(X_train, y_train)
-y_predict = clf.predict(X_test)
-print(y_predict)
+y_pred = clf.predict(X_test)
+print(y_pred)
 print(y_test)
 
 print("done in %0.3fs" % (time() - t0))
