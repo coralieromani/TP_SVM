@@ -97,6 +97,7 @@ y = y[y != 0]
 # split train test (say 25% for the test)
 # You can shuffle and then separate or you can just use train_test_split 
 #whithout shuffling (in that case fix the random state (say to 42) for reproductibility)
+X,y = shuffle(X,y)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
 ###############################################################################
 # fit the model with linear vs polynomial kernel
@@ -139,7 +140,6 @@ print('Generalization score for polynomial kernel: %s, %s' %
 #%%
 # display your results using frontiere (svm_source.py)
 
-best_linear = linear_fit.best_estimator_
 def f_linear(x):
     return clf_linear.predict(x.reshape(1, -1))
 
