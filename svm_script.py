@@ -188,6 +188,8 @@ of the "Labeled Faces in the Wild", aka LFW_:
 
 ####################################################################
 # Download the data and unzip; then load it as numpy arrays
+from sklearn.datasets import fetch_lfw_people
+
 lfw_people = fetch_lfw_people(min_faces_per_person=70, resize=0.4,
                               color=True, funneled=False, slice_=None,
                               download_if_missing=True)
