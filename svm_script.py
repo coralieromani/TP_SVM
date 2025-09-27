@@ -260,12 +260,10 @@ t0 = time()
 Cs = 10. ** np.arange(-5, 6)
 scores = []
 for C in Cs:
-    clf = SVC(C=C, kernel='linear')
-    clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    error_rate = 1 - accuracy_score(y_test, y_pred)
-    scores.append(error_rate)
-    print(f"C={C}  ->  Taux d'erreur = {error_rate:.3f}")
+    clf = SVC(kernel='linear', C=C)
+    clf.fit(X_train, y_train)   
+    scores.append(clf.score(X_train, y_train))
+    print(f"C={C}  ->  Score = {clf.score(X_train,y_train):.3f}")
 
 ind = np.argmax(scores)
 print("Best C: {}".format(Cs[ind]))
