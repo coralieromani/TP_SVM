@@ -69,13 +69,13 @@ Nous avons séparé le dataset en deux parties : un ensemble d'entraînement (75
 
 \subsection{Classification avec noyau linéaire}
 
-La classification des deux premières variables avec un noyau linéaire à pour objectif de trouver une hyperplan qui sépare au mieux les deux classes en maximisant la marge entre les points les plus proches de chaque classe. 
-Les scores obtenues pour cette méthode sont les suivants :
+La classification des deux premières variables avec un noyau linéaire a pour objectif de trouver un hyperplan qui sépare au mieux les deux classes en maximisant la marge entre les points les plus proches de chaque classe. 
+Les scores obtenus pour cette méthode sont les suivants :
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/linear_score.png}
-    \caption{}
+    \caption{Score obtenu pour le noyau linéaire}
     \label{fig:linear}
 \end{figure}
 
@@ -84,14 +84,14 @@ Pour les données d'entraînement, le modèle a classifié correctement 69,3\% d
 
 \subsection{Classification avec noyau polynomial}
 
-La classification des deux premières variables avec un noyau polynomial à pour objectif de trouver une frontière de décision non linéaire capable de séparer au mieux les deux classes. 
+La classification des deux premières variables avec un noyau polynomial a pour objectif de trouver une frontière de décision non linéaire capable de séparer au mieux les deux classes. 
 Nous souhaitons ici voir si l'emploi d'un noyau polynomial nous permet d'obtenir un meilleur classifieur que celui obtenu précédemment.\\
-Les scores obtenues pour cette méthode sont les suivants :
+Les scores obtenus pour cette méthode sont les suivants :
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Images/poly_score.png}
-    \caption{}
+    \caption{Score obtenu pour le noyau polynomial}
     \label{fig:poly}
 \end{figure}
 
@@ -103,10 +103,10 @@ On remarque que le score pour le noyau linéaire est très légèrement plus él
 En revanche il est légèrement plus faible pour les données de test $0.64$ contre $0.68$. A noter que ces différences sont faibles et que ces deux méthodes semblent donc similaires.\\
 
 - Ensuite, nous avons tracé graphiquement ces résultats à l'aide des frontières : \\
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/linear_vs_poly.png}
-    \caption{}
+    \caption{Visualisation de la frontière séparant les classes 1 et 2 pour les noyaux linéaire et polynomial}
     \label{fig:compare}
 \end{figure}
 
@@ -118,14 +118,119 @@ A REFORMULER + CONCLURE
 
 \section{SVM GUI}
 
-Nous utilisons dans cette section le script \texttt{svm\_gui.py}.\\
+Nous utilisons dans cette section le script \texttt{svm\_gui.py}.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/C=1.png}
+        \caption{C = 1}
+        \label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/C=0.7.png}
+        \caption{C = 0.7}
+        \label{}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/C=0.4.png}
+        \caption{C = 0.4}
+        \label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/C=0.3.png}
+        \caption{C = 0.3}
+        \label{}
+    \end{subfigure}
+
+    \caption{Visualisation de la région de décision selon différents paramètres de régularisation C}
+    \label{fig:carre}
+\end{figure}
+
+CONCLURE \\
+
+\newpage
 
 \section{Classification des visages}
 
+Dans cette section, nous exploitons une base d'images extraites de « Labeled Faces in the Wild ».
+L'objectif est de classifier, à l'aide d'un SVM à noyau linéaire, deux types d'images : des portraits de Tony Blair (figure \ref{fig : visages}) et de Colin Powell. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/visages.png}
+    \caption{Base de données de 12 portraits de Tony Blair}
+    \label{fig : visages}
+\end{figure}
+
 \subsection{Influence du paramètre de régularisation}
+
+Nous souhaitons observer l'influence du paramètre de régularisation $C$ sur la qualité du classifieur. 
+Pour cela, nous estimons le score d'apprentissage en fonction de ce paramètre en figure \ref{fig : C}.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{Images/erreur_prediction.png}
+        \caption{Score d'apprentissage en fonction du paramètres de régularisation C pour des classifieurs SVM à noyau linéaire}
+        \label{fig : C}
+\end{figure}
+
+En faisant varier les valeurs de C entre $10^{-5}$ et $10^{5}$, on remarque qu'on atteint un score d'apprentissage maximal d'environ $0.725$ lorsque $C=10^{-1}$.
+Au delà de cette valeur de C, le score reste maximal de façon constante.
+Ce résultat est cohérent, car il est attendu qu’un SVM atteigne un score maximal pour une valeur intermédiaire de 
+C. En effet, si C est trop petit il y a un risque un sous-apprentissage et s'il est trop grand, il y a un risque de sur-apprentissage.
+Ainsi le paramètre de régularisation optimal est $C=0.1$.
+
+
+\begin{figure}[H]    
+        \centering    
+        \includegraphics[width=0.6\textwidth]{Images/label_prediction.png}
+        \caption{}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/prediction_visage.png}
+    \caption{}
+\end{figure}
 
 \subsection{Variable de nuisances}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/avec_variable.png}
+    \caption{}
+    \label{fig:}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/sans_variable.png}
+    \caption{}
+    \label{fig:}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/coeff_visage.png}
+    \caption{}
+\end{figure}
+
 \subsection{Réduction de dimensions}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/apres_reduction.png}
+    \caption{}
+    \label{fig:}
+\end{figure}
 
 \end{document}
