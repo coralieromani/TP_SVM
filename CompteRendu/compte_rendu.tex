@@ -79,35 +79,42 @@ Les scores obtenues pour cette méthode sont les suivants :
     \label{fig:linear}
 \end{figure}
 
-Pour les données d'entraînement, le modèle à classfié correctement 77,3\% des données, contre 64\% pour les données de test. 
+Pour les données d'entraînement, le modèle a classifié correctement 69,3\% des données, contre 64\% pour les données de test. 
 
 
 \subsection{Classification avec noyau polynomial}
 
 La classification des deux premières variables avec un noyau polynomial à pour objectif de trouver une frontière de décision non linéaire capable de séparer au mieux les deux classes. 
+Nous souhaitons ici voir si l'emploi d'un noyau polynomial nous permet d'obtenir un meilleur classifieur que celui obtenu précédemment.\\
 Les scores obtenues pour cette méthode sont les suivants :
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{Images/poly_score.png}
+    \includegraphics[width=\textwidth]{Images/poly_score.png}
     \caption{}
     \label{fig:poly}
 \end{figure}
 
-Pour les données d'entraînement, le modèle a classifié correctement 76\% des données, contre 60\% pour les données de test. \\
+Pour les données d'entraînement et de test, le modèle a classifié correctement 68\% des données. \\
 
 \textbf{Comparaison des deux méthodes :}\\[0.5cm]
 - Nous disposons d'abord des scores obtenus en figure \ref{fig:linear} et figure \ref{fig:poly}.
-On remarque que le score pour le noyau linéaire est plus élevé que celui du noyau polynomial, autant pour les données d'entraînements que pour les données de test.\\
+On remarque que le score pour le noyau linéaire est très légèrement plus élevé que celui du noyau polynomial pour les données d'entraînements $0.693$ contre $0.68$.
+En revanche il est légèrement plus faible pour les données de test $0.64$ contre $0.68$. A noter que ces différences sont faibles et que ces deux méthodes semblent donc similaires.\\
 
-- Ensuite, nous avons tracé graphiquement ces résultats à l'aide des frontières : 
+- Ensuite, nous avons tracé graphiquement ces résultats à l'aide des frontières : \\
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/linear_vs_poly.png}
     \caption{}
+    \label{fig:compare}
 \end{figure}
 
-Conclure.
+La figure \ref{fig:compare} permet de visualiser les deux classifieurs sur l'ensemble des données du dataset Iris.\\
+On observe que la frontière du noyau polynomial semble plutôt linéaire.
+La différence remarquable est que pour le noyau linéaire on observe qu'il y a moins de données "bleues" mal classifiées que pour le noyau polynomial.
+On peut faire l'observation inverse concernant les données "oranges".
+A REFORMULER + CONCLURE 
 
 \section{SVM GUI}
 
