@@ -187,50 +187,67 @@ En faisant varier les valeurs de C entre $10^{-5}$ et $10^{5}$, on remarque qu'o
 Au delà de cette valeur de C, le score reste maximal de façon constante.
 Ce résultat est cohérent, car il est attendu qu’un SVM atteigne un score maximal pour une valeur intermédiaire de 
 C. En effet, si C est trop petit il y a un risque un sous-apprentissage et s'il est trop grand, il y a un risque de sur-apprentissage.
-Ainsi le paramètre de régularisation optimal est $C=0.1$.
+Ainsi, le paramètre de régularisation optimal est $C=0.1$.
 
 
 \begin{figure}[H]    
         \centering    
         \includegraphics[width=0.6\textwidth]{Images/label_prediction.png}
-        \caption{}
+        \caption{Visualisation de la prédiction, du test et de la précision}
+        \label{fig:precision}
 \end{figure}
+
+Sur la figure \ref{fig:precision}, on observe d'abord la prédiction et le test associé.
+Nous obtenons une excellente précision de la prédiction (88.9\%) avec le classifieur optimal. 
+On a, en figure \ref{fig:predict}, un échantillon des résultats obtenues : sur 12 images, 11 ont été correctement prédites.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/prediction_visage.png}
-    \caption{}
+    \caption{Prédictions faites à partir du classifieur optimal sur un échantillon d'images}
+    \label{ref:predict}
 \end{figure}
 
 \subsection{Variable de nuisances}
 
+Montrons que le score de prédiction est sensible au bruit. Pour cela, nous ajoutons des variables de bruit et
+recommençons la prédiction. Le bruitage consiste à ajouter des variables de bruit (ici 300), et à les mélanger aux autres. 
+
+Nous obtenons alors les valeurs suivantes avec et sans nuisances :
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/avec_variable.png}
-    \caption{}
-    \label{fig:}
+    \caption{Score avec variable de nuisance}
+    \label{fig: avec}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/sans_variable.png}
-    \caption{}
-    \label{fig:}
+    \caption{Score sans variable de nuisance}
+    \label{fig: sans}
 \end{figure}
+
+Nous constatons que le bruit endommage fortement le classifieur qui voit son score presque réduit de moitié.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/coeff_visage.png}
-    \caption{}
+    \caption{WTF}
+    \label{fig:?}
 \end{figure}
 
 \subsection{Réduction de dimensions}
 
-\begin{figure}[H]
+A présent, nous voulons améliorer la prédiction obtenue dans la question précédente à l'aide d'une réduction de
+dimension.
     \centering
     \includegraphics[width=0.8\textwidth]{Images/apres_reduction.png}
     \caption{}
-    \label{fig:}
+    \label{fig:dim}
 \end{figure}
+
+
 
 \end{document}
