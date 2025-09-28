@@ -9,13 +9,6 @@
 \usepackage{minted}
 \usepackage{authblk}
 \usepackage{caption}
-\captionsetup[listing]{labelformat=empty}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{regexpatch}
-\usepackage{dsfont} 
-\usepackage{mathrsfs}
-\usepackage{array}
 \usepackage{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{trees}
@@ -43,8 +36,8 @@
     
     \rule{\linewidth}{1pt} \\[1cm]
 
-    {\Huge \bfseries HAX907X - Apprentissage statistique}\\[0.5cm]
-    {\Huge TP : Support Vector Machines (SVM)}\\[1cm]
+    {\Huge \bfseries HAX907X Apprentissage statistique}\\[0.5cm]
+    {\Huge TP:Support Vector Machines (SVM)}\\[1cm]
     
     \rule{\linewidth}{1pt} \\[2cm]
 
@@ -61,22 +54,29 @@
 
 \newpage
 
-\section{Base de données Iris}
+\section{Introduction}
+ 
+Les \emph{Support Vector Machines} (SVM) sont des méthodes de classification supervisée visant à séparer les différentes classes en maximisant la marge entre elles. Elles reposent sur la recherche d'hyperplans séparateurs dans un espace de grande dimension.\\
 
-Dans cette section, nous étudierons la base de données Iris sur laquelle nous ferons une étude de classification sur les classes $1$ et $2$.
+Dans ce TP, nous allons mettre en pratique ces techniques de classification sur des données réelles et simulées, en utilisant le package \texttt{scikit-learn}. 
+Nous étudierons également l'influence des hyper-paramètres et des noyaux.
+Nous nous appuyons sur le dataset \texttt{iris} et une base de données de visages. 
+
+\section{Base de données \texttt{iris}}
+
+Dans cette section, nous étudierons la base de données \texttt{iris} sur laquelle nous ferons une étude de classification sur les classes $1$ et $2$.
 Nous utiliserons d'abord le noyau linéaire puis le noyau polynomial et nous les comparerons.
-Nous avons séparé le dataset en deux parties : un ensemble d'entraînement (75\% des données) et un ensemble de test(25\% des données). 
+Nous avons séparé le dataset en deux parties:un ensemble d'entraînement (75\% des données) et un ensemble de test(25\% des données). 
 
 \subsection{Classification avec noyau linéaire}
 
 La classification des deux premières variables avec un noyau linéaire a pour objectif de trouver un hyperplan qui sépare au mieux les deux classes en maximisant la marge entre les points les plus proches de chaque classe. 
-Les scores obtenus pour cette méthode sont les suivants :
+Les scores obtenus pour cette méthode sont les suivants:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/linear_score.png}
-    \caption{Score obtenu pour le noyau linéaire}
-    \label{fig:linear}
+    \caption{Score obtenu pour le noyau linéaire}\label{fig:linear}
 \end{figure}
 
 Pour les données d'entraînement, le modèle a classifié correctement 69,3\% des données, contre 64\% pour les données de test. 
@@ -91,14 +91,13 @@ Les scores obtenus pour cette méthode sont les suivants :
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Images/poly_score.png}
-    \caption{Score obtenu pour le noyau polynomial}
-    \label{fig:poly}
+    \caption{Score obtenu pour le noyau polynomial}\label{fig:poly}
 \end{figure}
 
 Pour les données d'entraînement et de test, le modèle a classifié correctement 68\% des données. \\
 
 \textbf{Comparaison des deux méthodes :}\\[0.5cm]
-- Nous disposons d'abord des scores obtenus en figure \ref{fig:linear} et figure \ref{fig:poly}.
+- Nous disposons d'abord des scores obtenus en figure\ref{fig:linear} et figure\ref{fig:poly}.
 On remarque que le score pour le noyau linéaire est très légèrement plus élevé que celui du noyau polynomial pour les données d'entraînements $0.693$ contre $0.68$.
 En revanche il est légèrement plus faible pour les données de test $0.64$ contre $0.68$. A noter que ces différences sont faibles et que ces deux méthodes semblent donc similaires.\\
 
@@ -106,15 +105,16 @@ En revanche il est légèrement plus faible pour les données de test $0.64$ con
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/linear_vs_poly.png}
-    \caption{Visualisation de la frontière séparant les classes 1 et 2 pour les noyaux linéaire et polynomial}
-    \label{fig:compare}
+    \caption{Visualisation de la frontière séparant les classes 1 et 2 pour les noyaux linéaire et polynomial}\label{fig:compare}
 \end{figure}
 
-La figure \ref{fig:compare} permet de visualiser les deux classifieurs sur l'ensemble des données du dataset Iris.\\
+La figure\ref{fig:compare} permet de visualiser les deux classifieurs sur l'ensemble des données du dataset \texttt{iris}.\\
 On observe que la frontière du noyau polynomial semble plutôt linéaire.
 La différence remarquable est que pour le noyau linéaire on observe qu'il y a moins de données "bleues" mal classifiées que pour le noyau polynomial.
 On peut faire l'observation inverse concernant les données "oranges".
 A REFORMULER + CONCLURE 
+
+\newpage
 
 \section{SVM GUI}
 
@@ -126,35 +126,30 @@ Nous utilisons dans cette section le script \texttt{svm\_gui.py}.
         \centering
         \includegraphics[width=\textwidth]{Images/C=1.png}
         \caption{C = 1}
-        \label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/C=0.7.png}
         \caption{C = 0.7}
-        \label{}
     \end{subfigure}
 
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/C=0.4.png}
         \caption{C = 0.4}
-        \label{}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/C=0.3.png}
         \caption{C = 0.3}
-        \label{}
     \end{subfigure}
 
-    \caption{Visualisation de la région de décision selon différents paramètres de régularisation C}
-    \label{fig:carre}
+    \caption{Visualisation de la région de décision selon différents paramètres de régularisation C}\label{fig:carre}
 \end{figure}
 
-CONCLURE \\
+CONCLURE
 
 \newpage
 
@@ -167,8 +162,7 @@ L'objectif est de classifier, à l'aide d'un SVM à noyau linéaire, deux types 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/visages.png}
-    \caption{Base de données de 12 portraits de Tony Blair}
-    \label{fig : visages}
+    \caption{Base de données de 12 portraits de Tony Blair}\label{fig : visages}
 \end{figure}
 
 \subsection{Influence du paramètre de régularisation}
@@ -177,10 +171,9 @@ Nous souhaitons observer l'influence du paramètre de régularisation $C$ sur la
 Pour cela, nous estimons le score d'apprentissage en fonction de ce paramètre en figure \ref{fig : C}.
 
 \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Images/erreur_prediction.png}
-        \caption{Score d'apprentissage en fonction du paramètres de régularisation C pour des classifieurs SVM à noyau linéaire}
-        \label{fig : C}
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/erreur_prediction.png}
+    \caption{Score d'apprentissage en fonction du paramètres de régularisation C pour des classifieurs SVM à noyau linéaire}\label{fig : C}
 \end{figure}
 
 En faisant varier les valeurs de C entre $10^{-5}$ et $10^{5}$, on remarque qu'on atteint un score d'apprentissage maximal d'environ $0.725$ lorsque $C=10^{-1}$.
@@ -191,21 +184,19 @@ Ainsi, le paramètre de régularisation optimal est $C=0.1$.
 
 
 \begin{figure}[H]    
-        \centering    
-        \includegraphics[width=0.6\textwidth]{Images/label_prediction.png}
-        \caption{Visualisation de la prédiction, du test et de la précision}
-        \label{fig:precision}
+    \centering    
+    \includegraphics[width=0.6\textwidth]{Images/label_prediction.png}
+    \caption{Visualisation de la prédiction, du test et de la précision}\label{fig:precision}
 \end{figure}
 
-Sur la figure \ref{fig:precision}, on observe d'abord la prédiction et le test associé.
+Sur la figure\ref{fig:precision}, on observe d'abord la prédiction et le test associé.
 Nous obtenons une excellente précision de la prédiction (88.9\%) avec le classifieur optimal. 
-On a, en figure \ref{fig:predict}, un échantillon des résultats obtenues : sur 12 images, 11 ont été correctement prédites.
+On a, en figure\ref{fig:predict}, un échantillon des résultats obtenues:sur 12 images, 11 ont été correctement prédites.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/prediction_visage.png}
-    \caption{Prédictions faites à partir du classifieur optimal sur un échantillon d'images}
-    \label{ref:predict}
+    \caption{Prédictions faites à partir du classifieur optimal sur un échantillon d'images}\label{ref:predict}
 \end{figure}
 
 \subsection{Variable de nuisances}
@@ -218,15 +209,13 @@ Nous obtenons alors les valeurs suivantes avec et sans nuisances :
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/avec_variable.png}
-    \caption{Score avec variable de nuisance}
-    \label{fig: avec}
+    \caption{Score avec variable de nuisance}\label{fig: avec}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/sans_variable.png}
-    \caption{Score sans variable de nuisance}
-    \label{fig: sans}
+    \caption{Score sans variable de nuisance}\label{fig: sans}
 \end{figure}
 
 Nous constatons que le bruit endommage fortement le classifieur qui voit son score presque réduit de moitié.
@@ -234,8 +223,7 @@ Nous constatons que le bruit endommage fortement le classifieur qui voit son sco
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/coeff_visage.png}
-    \caption{WTF}
-    \label{fig:?}
+    \caption{WTF}\label{fig:?}
 \end{figure}
 
 \subsection{Réduction de dimensions}
@@ -245,8 +233,7 @@ dimension.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/apres_reduction.png}
-    \caption{}
-    \label{fig:dim}
+    \caption{}\label{fig:dim}
 \end{figure}
 
 
