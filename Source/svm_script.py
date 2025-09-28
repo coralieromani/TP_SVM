@@ -344,7 +344,7 @@ run_svm_cv(X_noisy,y)
 # Q6
 n_components = 90  # jouer avec ce parametre
 pca = PCA(n_components=n_components,svd_solver='randomized').fit(X_noisy)
-X_noisy2 = pca.transform(X_noisy)
+X_noisy2 = pca.fit_transform(X_noisy)
 print("Score apres reduction de dimension")
 run_svm_cv(X_noisy2,y)
 
