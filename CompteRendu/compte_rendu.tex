@@ -63,8 +63,8 @@ Nous analyserons également l’influence des noyaux et des hyperparamètres sur
 
 \section{Base de données \texttt{iris}}
 
-Cette section est consacrée à l'étude la base de données \texttt{iris} sur laquelle nous ferons une étude de classification sur les classes $1$ et $2$.
-Nous considèrerons d'abord le noyau linéaire puis le noyau polynomial et nous les comparerons.
+Cette section est consacrée à l'étude de la base de données \texttt{iris} sur laquelle nous ferons une étude de classification sur les classes $1$ et $2$.
+Nous considérerons d'abord le noyau linéaire puis le noyau polynomial et nous les comparerons.
 Le dataset est divisé en deux parties : un ensemble d'entraînement (75\% des données) et un ensemble de test (25\%). 
 
 \subsection{Classification avec noyau linéaire}
@@ -97,28 +97,28 @@ Pour les données d'entraînement et de test, le modèle a classifié correcteme
 
 \textbf{Comparaison des deux méthodes  : }\\[0.5cm]
 - Nous disposons d'abord des scores obtenus en figure \ref{fig : linear} et figure \ref{fig : poly}.
-On remarque que le score obtenu pour le noyau polynomial est supérieur à celui du noyau linéaire : $0.68 \geq 0.64$.
+On remarque que le score de test obtenu pour le noyau polynomial est supérieur à celui du noyau linéaire : $0.68 \geq 0.64$.
 La différence reste toutefois relativement faible, ce qui ne permet pas de conclure à une nette supériorité du modèle polynomial.\\
 
 - Ensuite, nous avons tracé graphiquement ces résultats à l'aide des frontières : \\
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Images/linear_vs_poly.png}
-    \caption{Visualisation de la frontière séparant les classes 1 et 2 pour les noyaux linéaire et polynomial}\label{fig : compare}
+    \caption{Visualisation de la frontière séparant les classes 1 (en bleu) et 2 (en orange) pour les noyaux linéaire et polynomial}\label{fig : compare}
 \end{figure}
 
 La figure \ref{fig : compare} illustre les frontières de décision obtenues par les deux classifieurs appliqués au dataset \texttt{iris}.  
 On remarque que la frontière associée au noyau polynomial reste proche d’une séparation linéaire. \\
-En comparant les résultats, on constate que le classifieur linéaire commet moins d’erreurs sur les données de la classe « bleue », tandis que le classifieur polynomial en commet moins sur les données de la classe « orange ».  \\
-Dans l’ensemble, les performances des deux modèles apparaissent donc comparables, sans qu’un noyau ne se démarque nettement de l’autre.
+En comparant les graphiques, on constate que le classifieur linéaire commet moins d’erreurs sur les données de la classe 1, tandis que le classifieur polynomial en commet moins sur les données de la classe 2.  \\
+À ce stade, les performances des deux modèles semblent similaires, sans qu’un noyau ne se démarque nettement de l’autre.
 
 \newpage
 
 \section{SVM GUI}
 
-Nous utilisons dans cette section le script \texttt{svm\_gui.py}  permettant de lancer une application évalue en temps réel l’impact du choix du noyau et du paramètre de régularisation C.
-Nous avons généré manuellement une base de données trés déséquilibrée (90\% vs 10\% environ). 
-A l'aide d'un noyau linéaire et en faisant évoluer la valeur de C, nous avons obtenu la figure \ref{fig : carre}.
+Nous utilisons dans cette section le script \texttt{svm\_gui.py}  permettant de lancer une application qui évalue en temps réel l’impact du choix du noyau et du paramètre de régularisation C.
+Nous avons généré manuellement une base de données très déséquilibrée (90\% vs 10\% environ). 
+À l'aide d'un noyau linéaire et en faisant évoluer la valeur de C, nous obtenons la figure \ref{fig : carre}.
 
 
 \begin{figure}[H]
@@ -131,20 +131,20 @@ A l'aide d'un noyau linéaire et en faisant évoluer la valeur de C, nous avons 
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Images/C=0.7.png}
-        \caption{C = 0.7}
+        \includegraphics[width=\textwidth]{Images/C=0.3.png}
+        \caption{C = 0.3}
     \end{subfigure}
 
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Images/C=0.4.png}
-        \caption{C = 0.4}
+        \includegraphics[width=\textwidth]{Images/C=1bis.png}
+        \caption{C = 1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Images/C=0.3.png}
-        \caption{C = 0.3}
+        \includegraphics[width=\textwidth]{Images/C=10.png}
+        \caption{C = 10}
     \end{subfigure}
 
     \caption{Visualisation de la région de décision selon différents paramètres de régularisation C}\label{fig : carre}
