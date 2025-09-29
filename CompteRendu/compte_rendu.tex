@@ -117,7 +117,7 @@ En comparant les graphiques, on constate que le classifieur linéaire commet moi
 \section{SVM GUI}
 
 Nous utilisons dans cette section le script \texttt{svm\_gui.py}  permettant de lancer une application qui évalue en temps réel l’impact du choix du noyau et du paramètre de régularisation C.
-Nous avons généré manuellement une base de données très déséquilibrée (90\% vs 10\% environ). 
+Nous avons généré manuellement deux jeux de données très déséquilibrée, un de 90 données et l'autre de 10 données. 
 À l'aide d'un noyau linéaire et en faisant évoluer la valeur de C, nous obtenons la figure \ref{fig : carre}.
 
 
@@ -126,37 +126,39 @@ Nous avons généré manuellement une base de données très déséquilibrée (9
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/C=1.png}
-        \caption{C = 1}
+        \caption{C = 1 (pour 90 données)}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/C=0.3.png}
-        \caption{C = 0.3}
+        \caption{C = 0.3 (pour 90 données)}
     \end{subfigure}
 
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Images/C=1bis.png}
-        \caption{C = 1}
+        \includegraphics[width=\textwidth]{Images/C=10.png}
+        \caption{C = 10 (pour 10 données)}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Images/C=10.png}
-        \caption{C = 10}
+        \includegraphics[width=\textwidth]{Images/C=1_bis.png}
+        \caption{C = 1 (pour 10 données)}
     \end{subfigure}
 
     \caption{Visualisation de la région de décision selon différents paramètres de régularisation C}\label{fig : carre}
 \end{figure}
 
-On s'aperçoit ici, de l’influence du paramètre de régularisation $C$ sur la frontière de décision obtenue avec un noyau linéaire.  
-Lorsque $C$ est élevé (figure (a)), le modèle cherche à minimiser les erreurs de classification sur l’ensemble d’entraînement, ce qui conduit à une frontière de décision plus stricte et plus proche des données. 
-À mesure que la valeur de $C$ diminue (figures (b) et (c)), la marge augmente et le modèle accepte davantage de points mal classés afin d’obtenir une séparation plus régulière.  
-On observe ainsi que la diminution de $C$ rend la frontière plus « souple », permettant de mieux généraliser, mais au prix d’un plus grand nombre d’erreurs sur l’échantillon minoritaire. 
-Notons que pour $C = 0.3$ (figure (d)), la frontière se décale complètement et toutes les observations se retrouvent du même côté. 
-Le modèle adopte alors une solution triviale qui ne sépare plus les deux classes ce qui illustre les limites d’une trop faible valeur de $C$ dans un contexte de données déséquilibrées.  
+L'influence du paramètre de régularisation est similaire pour les deux jeux de données, mais pas aux mêmes ordres de grandeur.
 
+\begin{itemize}
+    \item Pour un grand jeu de données (voir figure (a) et (b)) : L'influence de C est visible à une échelle de $10^{-1}$.
+    \item Pour un petit jeu de données (voir figure (c) et (d)) : L'influence de C est visible à une échelle de $1$ (à noter que pour $C \leq 1$, il n'y a pas de changement visible).
+\end{itemize}
+
+Dans les deux cas, on remarque que lorsque C diminue, la frontière de décision et les marges évoluent en fonction de la classe majoritaire.
+En effet, plus C diminue plus les marges sont imprécises en s'élargissant jusqu'à ce que toutes les observations soient classées du même côté.
 \newpage
 
 \section{Classification des visages}
@@ -174,12 +176,12 @@ L'objectif est de classifier, à l'aide d'un SVM à noyau linéaire, deux types 
 \subsection{Influence du paramètre de régularisation}
 
 Nous souhaitons observer l'influence du paramètre de régularisation $C$ sur la qualité du classifieur. 
-Pour cela, nous estimons le score d'apprentissage en fonction de ce paramètre en figure \ref{fig : C}.
+Pour cela, nous estimons le score d'apprentissage en fonction de ce paramètre à la figure \ref{fig : C}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{Images/erreur_prediction.png}
-    \caption{Score d'apprentissage en fonction du paramètres de régularisation C pour des classifieurs SVM à noyau linéaire}\label{fig : C}
+    \caption{Score d'apprentissage en fonction du paramètre de régularisation C pour des classifieurs SVM à noyau linéaire}\label{fig : C}
 \end{figure}
 
 En faisant varier les valeurs de C entre $10^{-5}$ et $10^{5}$, on remarque qu'on atteint un score d'apprentissage maximal d'environ $0.725$ lorsque $C=10^{-1}$.
@@ -192,18 +194,16 @@ Ainsi, le paramètre de régularisation optimal est $C=0.1$.\\[0.5cm]
 \begin{figure}[H]    
     \centering    
     \includegraphics[width=0.8\textwidth]{Images/label_prediction.png}
-    \caption{Visualisation de la prédiction, du test et de la précision}\label{fig : precision}
+    \caption{Visualisation de la prédiction du test et de sa précision}\label{fig : precision}
 \end{figure}
 
 La figure \ref{fig : precision} illustre les résultats obtenus avec le classifieur SVM linéaire optimal : 
 \begin{itemize}
-    \item Prédiction : matrice binaires des valeurs prédites pour les images par le classifieur entraîné.
-    \item Test : matrice binaires des valeurs réelle correspondant aux images.
-    \item Chance level : précision attendue si l’on prédisait toujours la classe majoritaire. Cela donne un niveau de référence minimal pour évaluer la performance du classifieur.
-    \item Précision : proportion de prédictions correctes, calculée comme la fraction de valeurs correctement prédites par rapport aux valeurs réelles.
+    \item Prédiction : matrice binaire des valeurs prédites pour les images par le classifieur entraîné.
+    \item Test : matrice binaire des valeurs réelles correspondant aux images.
 \end{itemize}
 
-Ainsi, le classifieur linéaire atteint une performance nettement supérieure au niveau de chance, démontrant sa capacité à distinguer correctement les classes sur ce jeu de test.
+Ainsi, le classifieur linéaire atteint une précision nettement supérieure au niveau de chance, démontrant sa capacité à distinguer correctement les classes sur ce jeu de test.
 
 \begin{figure}[H]
     \centering
@@ -211,20 +211,25 @@ Ainsi, le classifieur linéaire atteint une performance nettement supérieure au
     \caption{Prédictions faites à partir du classifieur optimal sur un échantillon d'images}\label{fig:predict}
 \end{figure}
 
-La figure \ref{fig:predict} montre un échantillon des résultats obtenues : sur 12 images, 11 ont été correctement prédites.
-
-\subsection{Variable de nuisances}
-
-Montrons que le score de prédiction est sensible au bruit. Pour cela, nous ajoutons des variables de bruit et
-recommençons la prédiction. Le bruitage consiste à ajouter des variables de bruit (ici 300), et à les mélanger aux autres. 
-
-Nous obtenons alors les valeurs suivantes avec et sans nuisances :
+La figure \ref{fig:predict} montre un échantillon des résultats obtenues : sur 12 images, 11 ont été correctement prédites, ce qui correspond environ à 91\% de bonnes réponses.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Images/avec_variable.png}
-    \caption{Score avec variable de nuisance}\label{fig: avec}
+    \includegraphics[width=0.5\textwidth]{Images/coeff_visage.png}
+    \caption{Visualisation des coefficients du SVM}\label{fig : ?}
 \end{figure}
+
+La figure \ref{fig : ?} permet de visualiser les coefficients du SVM sous la forme d'une image.
+Cela colore différemment les zones influençant le SVM vers chaque classe. 
+En effet, les zones très claires (jaune) pousseront vers une classe, tandis que que les zones très foncées (violet) pousseront vers l'autre classe.
+Les zones vertes n'influenceront pas ou très peu la décision du SVM.
+
+\subsection{Variable de nuisances}
+
+Nous voulons maintenant, montrer que le score de prédiction est sensible au bruit. Pour cela, nous ajoutons des variables de bruit et
+recommençons la prédiction. Le bruitage consiste à ajouter des variables de bruit (ici 300), et à les mélanger aux autres. 
+
+Nous obtenons alors les valeurs suivantes avec et sans nuisances :
 
 \begin{figure}[H]
     \centering
@@ -232,23 +237,36 @@ Nous obtenons alors les valeurs suivantes avec et sans nuisances :
     \caption{Score sans variable de nuisance}\label{fig: sans}
 \end{figure}
 
-Nous constatons que le bruit endommage fortement le classifieur qui voit son score presque réduit de moitié.
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Images/coeff_visage.png}
-    \caption{WTF}\label{fig : ?}
+    \includegraphics[width=0.8\textwidth]{Images/avec_variable.png}
+    \caption{Score avec variable de nuisance}\label{fig: avec}
 \end{figure}
+
+Nous constatons que le bruit endommage fortement le classifieur qui voit son score presque réduit de moitié.
 
 \subsection{Réduction de dimensions}
 
-A présent, nous voulons améliorer la prédiction obtenue dans la question précédente à l'aide d'une réduction de
-dimension.
+À présent, nous voulons améliorer la prédiction obtenue dans la question précédente (figure \ref{fig: avec}) à l'aide d'une ACP.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/apres_reduction.png}
-    \caption{}\label{fig : dim}
+    \caption{Scores obtenus pour n=90}\label{fig : dim}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/n=200.png}
+    \caption{Scores obtenus pour n=200}\label{fig : dim2}
+\end{figure}
+
+Pour commencer, on doit choisir le nombre de composantes $n$ optimales qui équilibre le mieux l'information reçue et le bruit conservé.
+Dans notre cas, on s'est rendu compte que lorsque $n$ est trop petit (à partir de $n = 70$), l'algorithme tourne à l'infini. On suppose qu'un  nombre de dimension trop faible empêche la convergence du SVM.\\
+On a ensuite, testé pour $n = 90$ et pour $n = 200$. On remarque que les scores de test sont très proches néanmoins, lorsque $n$ est trop grand (figure \ref{fig : dim2}) le score n'est pas fiable en raison du grand nombre de bruits conservés.\\
+\\
+Finalement, il existe une solution pour améliorer le score d'un jeu de données bruité : la réduction de dimension. Dans notre cas, le choix de $n = 90$ nous semble intéressant car on passe d'un score de 0.49 à 0.54.
+Ce changement n'est pas significatif (seulement +5\%) car à 90 composantes il reste toujours du bruit.
 
 
 
