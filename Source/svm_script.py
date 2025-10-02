@@ -97,8 +97,9 @@ y = y[y != 0]
 # split train test (say 25% for the test)
 # You can shuffle and then separate or you can just use train_test_split 
 #whithout shuffling (in that case fix the random state (say to 42) for reproductibility)
-X,y = shuffle(X,y)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+X,y = shuffle(X,y, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, shuffle=False)
 ###############################################################################
 # fit the model with linear vs polynomial kernel
 ###############################################################################
@@ -313,7 +314,7 @@ plt.show()
 
 #%%
 # Q5
-
+np.random.seed(42)
 def run_svm_cv(_X, _y):
     _indices = np.random.permutation(_X.shape[0])
     _train_idx, _test_idx = _indices[:_X.shape[0] // 2], _indices[_X.shape[0] // 2:]
@@ -344,7 +345,8 @@ run_svm_cv(X_noisy,y)
 
 #%%
 # Q6
-n_components = 70  # jouer avec ce parametre
+n_components = 200 # jouer avec ce parametre
+np.random.seed(42)
 pca = PCA(n_components=n_components,svd_solver='randomized').fit(X_noisy)
 X_noisy2 = pca.fit_transform(X_noisy)
 print("Score apres reduction de dimension")
