@@ -10,7 +10,7 @@ Le but de ce TP est de mettre en pratique ce type de techniques de classificatio
 
 ## Instructions de compilation
 **1.** Assurez-vous d'avoir installé **LateX** et tous les packages nécessaires.\
-**2.** Allez dans le dossier CompteRendu sur votre terminal : `cd CompteRendu`.
+**2.** Allez dans le dossier CompteRendu sur votre terminal : `cd CompteRendu`.\
 **3.** Compilez avec la commande : `pdflatex compte_rendu.tex`.
 
 ## Auteurs
