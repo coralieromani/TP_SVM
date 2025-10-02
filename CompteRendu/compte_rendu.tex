@@ -67,7 +67,7 @@ Cette section est consacrée à l'étude de la base de données \texttt{iris} su
 Nous considérerons d'abord le noyau linéaire puis le noyau polynomial et nous les comparerons.
 Le dataset est divisé en deux parties : un ensemble d'entraînement (75\% des données) et un ensemble de test (25\%). 
 
-\subsection{Classification avec noyau linéaire}
+\subsection{Classification avec noyau linéaire (Question 1)}
 
 La classification des deux premières variables avec un noyau linéaire a pour objectif de trouver un hyperplan qui sépare au mieux les deux classes en maximisant la marge entre les points des deux classes. 
 Les scores obtenus pour cette méthode sont les suivants : 
@@ -78,10 +78,10 @@ Les scores obtenus pour cette méthode sont les suivants :
     \caption{Score obtenu pour le noyau linéaire}\label{fig : linear}
 \end{figure}
 
-Pour les données d'entraînement, le modèle a classifié correctement 69,3\% des données, contre 64\% pour les données de test. 
+Pour les données d'entraînement, le modèle a classifié correctement 73.3\% des données, contre 72\% pour les données de test. 
 
 
-\subsection{Classification avec noyau polynomial}
+\subsection{Classification avec noyau polynomial (Question 2)}
 
 L’utilisation d’un noyau polynomial sur les deux premières variables permet de trouver une frontière de décision non linéaire capable de séparer au mieux les deux classes. 
 L'objectif est d'évaluer si l'emploi d'un noyau polynomial nous permet d'obtenir un meilleur classifieur que celui obtenu précédemment.\\
@@ -89,35 +89,34 @@ Les scores obtenus pour cette méthode sont les suivants :
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Images/poly_score.png}
+    \includegraphics[width=0.7\textwidth]{Images/poly_score.png}
     \caption{Score obtenu pour le noyau polynomial}\label{fig : poly}
 \end{figure}
 
-Pour les données d'entraînement et de test, le modèle a classifié correctement 68\% des données. \\
+Pour les données d'entraînement et de test, le modèle a classifié correctement 72\% des données. \\
 
 \textbf{Comparaison des deux méthodes  : }\\[0.5cm]
 - Nous disposons d'abord des scores obtenus en figure \ref{fig : linear} et figure \ref{fig : poly}.
-On remarque que le score de test obtenu pour le noyau polynomial est supérieur à celui du noyau linéaire : $0.68 \geq 0.64$.
-La différence reste toutefois relativement faible, ce qui ne permet pas de conclure à une nette supériorité du modèle polynomial.\\
+On remarque que le score de test obtenu pour les deux noyaux sont les mêmes : $0.72$.
+Cela peut s'expliquer par le fait que le degré du noyau polynomial soit 1, donc qu'il se rapproche d'un noyau linéaire.
 
 - Ensuite, nous avons tracé graphiquement ces résultats à l'aide des frontières : \\
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Images/linear_vs_poly.png}
+    \includegraphics[width=\textwidth]{Images/linear_versus_poly.png}
     \caption{Visualisation de la frontière séparant les classes 1 (en bleu) et 2 (en orange) pour les noyaux linéaire et polynomial}\label{fig : compare}
 \end{figure}
 
 La figure \ref{fig : compare} illustre les frontières de décision obtenues par les deux classifieurs appliqués au dataset \texttt{iris}.  
 On remarque que la frontière associée au noyau polynomial reste proche d’une séparation linéaire. \\
-En comparant les graphiques, on constate que le classifieur linéaire commet moins d’erreurs sur les données de la classe 1, tandis que le classifieur polynomial en commet moins sur les données de la classe 2.  \\
 À ce stade, les performances des deux modèles semblent similaires, sans qu’un noyau ne se démarque nettement de l’autre.
 
 \newpage
 
-\section{SVM GUI}
+\section{SVM GUI (Question 3)} 
 
 Nous utilisons dans cette section le script \texttt{svm\_gui.py}  permettant de lancer une application qui évalue en temps réel l’impact du choix du noyau et du paramètre de régularisation C.
-Nous avons généré manuellement deux jeux de données très déséquilibrée, un de 90 données et l'autre de 10 données. 
+Nous avons généré manuellement deux jeux de données très déséquilibrée, un contenant 90 échantillons et l'autre seulement 10 échantillons. 
 À l'aide d'un noyau linéaire et en faisant évoluer la valeur de C, nous obtenons la figure \ref{fig : carre}.
 
 
@@ -173,7 +172,7 @@ L'objectif est de classifier, à l'aide d'un SVM à noyau linéaire, deux types 
     \caption{Base de données de 12 portraits de Tony Blair}\label{fig : visages}
 \end{figure}
 
-\subsection{Influence du paramètre de régularisation}
+\subsection{Influence du paramètre de régularisation (Question 4)}
 
 Nous souhaitons observer l'influence du paramètre de régularisation $C$ sur la qualité du classifieur. 
 Pour cela, nous estimons le score d'apprentissage en fonction de ce paramètre à la figure \ref{fig : C}.
@@ -184,16 +183,15 @@ Pour cela, nous estimons le score d'apprentissage en fonction de ce paramètre �
     \caption{Score d'apprentissage en fonction du paramètre de régularisation C pour des classifieurs SVM à noyau linéaire}\label{fig : C}
 \end{figure}
 
-En faisant varier les valeurs de C entre $10^{-5}$ et $10^{5}$, on remarque qu'on atteint un score d'apprentissage maximal d'environ $0.725$ lorsque $C=10^{-1}$.
+En faisant varier les valeurs de C entre $10^{-5}$ et $10^{5}$, on remarque qu'on atteint un score d'apprentissage maximal de $1$ lorsque $C=10^{-3}$.
 Au delà de cette valeur de C, le score reste maximal de façon constante.\\
 Ce résultat est cohérent, car il est attendu qu’un SVM atteigne un score maximal pour une valeur intermédiaire de 
 C. En effet, si C est trop petit il y a un risque un sous-apprentissage et s'il est trop grand, il y a un risque de sur-apprentissage.\\
-Ainsi, le paramètre de régularisation optimal est $C=0.1$.\\[0.5cm]
-
+Ainsi, le paramètre de régularisation optimal est $C=10^{-3}$.\\
 
 \begin{figure}[H]    
     \centering    
-    \includegraphics[width=0.8\textwidth]{Images/label_prediction.png}
+    \includegraphics[width=0.7\textwidth]{Images/label_prediction.png}
     \caption{Visualisation de la prédiction du test et de sa précision}\label{fig : precision}
 \end{figure}
 
@@ -207,7 +205,7 @@ Ainsi, le classifieur linéaire atteint une précision nettement supérieure au 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Images/prediction_visage.png}
+    \includegraphics[width=0.5\textwidth]{Images/prediction_visage.png}
     \caption{Prédictions faites à partir du classifieur optimal sur un échantillon d'images}\label{fig:predict}
 \end{figure}
 
@@ -221,10 +219,10 @@ La figure \ref{fig:predict} montre un échantillon des résultats obtenues : sur
 
 La figure \ref{fig : ?} permet de visualiser les coefficients du SVM sous la forme d'une image.
 Cela colore différemment les zones influençant le SVM vers chaque classe. 
-En effet, les zones très claires (jaune) pousseront vers une classe, tandis que que les zones très foncées (violet) pousseront vers l'autre classe.
-Les zones vertes n'influenceront pas ou très peu la décision du SVM.
+En effet, les zones rouges pousseront vers une classe, tandis que que les zones bleues pousseront vers l'autre classe.
+Les zones blanches n'influenceront pas ou très peu la décision du SVM.
 
-\subsection{Variable de nuisances}
+\subsection{Variable de nuisances (Question 5)}
 
 Nous voulons maintenant, montrer que le score de prédiction est sensible au bruit. Pour cela, nous ajoutons des variables de bruit et
 recommençons la prédiction. Le bruitage consiste à ajouter des variables de bruit (ici 300), et à les mélanger aux autres. 
@@ -245,7 +243,7 @@ Nous obtenons alors les valeurs suivantes avec et sans nuisances :
 
 Nous constatons que le bruit endommage fortement le classifieur qui voit son score presque réduit de moitié.
 
-\subsection{Réduction de dimensions}
+\subsection{Réduction de dimensions (Question 6)}
 
 À présent, nous voulons améliorer la prédiction obtenue dans la question précédente (figure \ref{fig: avec}) à l'aide d'une ACP.
 
@@ -263,18 +261,25 @@ Nous constatons que le bruit endommage fortement le classifieur qui voit son sco
 
 Pour commencer, on doit choisir le nombre de composantes $n$ optimales qui équilibre le mieux l'information reçue et le bruit conservé.
 Dans notre cas, on s'est rendu compte que lorsque $n$ est trop petit (à partir de $n = 70$), l'algorithme tourne à l'infini. On suppose qu'un  nombre de dimension trop faible empêche la convergence du SVM.\\
-On a ensuite, testé pour $n = 90$ et pour $n = 200$. On remarque que les scores de test sont très proches néanmoins, lorsque $n$ est trop grand (figure \ref{fig : dim2}) le score n'est pas fiable en raison du grand nombre de bruits conservés.\\
+On a ensuite, testé pour $n = 90$ et pour $n = 200$. On remarque que les scores de test sont très proches. Néanmoins, lorsque $n$ est trop grand (figure \ref{fig : dim2}) le score n'est pas fiable en raison du grand nombre de bruits conservés.\\
 \\
-Finalement, il existe une solution pour améliorer le score d'un jeu de données bruité : la réduction de dimension. Dans notre cas, le choix de $n = 90$ nous semble intéressant car on passe d'un score de 0.49 à 0.54.
-Ce changement n'est pas significatif (seulement +5\%) car à 90 composantes il reste toujours du bruit.
+Finalement, il existe une solution pour améliorer le score d'un jeu de données bruité : la réduction de dimension. Dans notre cas, le choix de $n = 90$ nous semble intéressant car on passe d'un score de 0.516 à 0.579.
+Ce changement n'est pas significatif (environ +6\%) car à 90 composantes il reste toujours du bruit.
 
-\subsection{Biais dans le prétraitement des données}
+\subsection{Biais dans le prétraitement des données (Question 7)}
 
 Malgré les résultats obtenus précédemment, il existe un biais dans notre prétraitement. 
-En effet, les données ont été standardisées avant leur séparation en ensembles d'entraînement et de test.
-Cela signifie que les statistiques utilisées pour normaliser l'ensemble d'entraînement ont été calculées en incluant l'ensemble de test. 
+En effet, les données ont été standardisées avant leur séparation en ensembles d'entraînement et de test (figure \ref{fig : q7}).
+Cela signifie que les statistiques utilisées pour normaliser l'ensemble d'entraînement ont été calculées en incluant l'ensemble de test, ce qui représente une fuite de données. 
 Le modèle possède alors indirectement des informations provenant des données de test, ce qui surestime ses performances réelles.
-\\
-AJOUTER LES LIGNES DE CODE CORRESPONDANTES
-PARLER DE FUITE DE DONNÉES OU DE DATA LEAKAGE
+
+
+\begin{figure}[H]    
+    \centering    
+    \includegraphics[width=0.3\textwidth]{Images/q7.png}
+    \caption{Standardisation des données}\label{fig : q7}
+\end{figure}
+
+\section{Conclusion}
+
 \end{document}
